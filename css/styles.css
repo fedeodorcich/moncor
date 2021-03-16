@@ -1,0 +1,88 @@
+.wrapper {
+	width: 100%;
+    display: flex;
+    align-items: stretch;
+}
+
+.btn{
+	transition: all .3s ease-in-out;
+}
+
+body{
+	background-color: #ebebeb;
+}
+/*---------------------------------sidenav--------*/
+
+#sidenav{
+	min-width: 270px;
+	min-height: 100vh;
+	transition: all .3s ease-in-out;
+}
+
+#sidenav ul{
+	padding-left: 0;
+
+}
+
+#sidenav ul li{
+	list-style: none;
+}
+
+#sidenav ul li a{
+	color: white;
+	text-decoration: none;
+	padding: .5em 1em;
+	display: block;
+	transition: all .3s ease-in-out;
+}
+ button svg{
+ 	width: 1rem;
+  	height: 1rem;
+  	margin-right: 5px;
+  	vertical-align: middle;
+ }
+#sidenav ul li a svg{
+	width: 18px;
+  	height: 18px;
+  	margin-right: 10px;
+  	vertical-align: middle;
+}
+#sidenav ul li a:hover{
+	background-color: lightgrey;
+	color: black;
+}
+
+.activenav{
+	margin-left: -270px;
+}
+
+#sidenav ul li a.activa{
+	background-color: white;
+	color: black;
+}
+/*-------------------------------------------------*/
+#contenedor{
+	width: 100%;
+}
+.mainer{
+	padding: 1em;
+	width: 100%;
+}
+
+#clicker{
+	color: white;
+	margin-left: 10px;
+}
+
+#clicker:hover{
+	cursor: pointer;
+}
+/*-------------------------------------------ALTA DE USUARIO---*/
+.userframe{
+	background-color: lavenderblush;
+	border-radius: 5px;
+	margin:0;
+	padding: 0;
+	transition: all .3s ease-in-out;
+}
+/*--------------------------------------------VALIDATION-------*/
