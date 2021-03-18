@@ -4,7 +4,7 @@
 	
 	// aca se realiza la carga en la tabla de vehiculos
 
-	$req="INSERT INTO `vehiculos` (`id`, `vehiculo`, `patente`, `cilindrada`, `km_total`, `km_aux`, `km_diarios`, `last_service`, `fecha_carga`, `timestamp`) VALUES ('0', '$json[vehiculo]', '$json[patente]', '$json[cilindrada]', '$json[kminiciales]', '$json[kminiciales]', '$json[kmdiarios]', current_timestamp(), current_timestamp(), current_timestamp());";
+	$req="INSERT INTO `vehiculos` (`id`, `vehiculo`, `patente`, `cilindrada`, `km_total`, `km_aux`, `km_diarios`, `last_service`, `fecha_carga`, `notified`, `timestamp`) VALUES ('0', '$json[vehiculo]', '$json[patente]', '$json[cilindrada]', '$json[kminiciales]', '$json[kminiciales]', '$json[kmdiarios]',0, current_timestamp(), current_timestamp(), current_timestamp());";
 
 	$queryuser=mysqli_query($conexion,$req);
 

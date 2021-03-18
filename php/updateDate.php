@@ -39,7 +39,7 @@
 
 		 if($updater)
 		 {
-		 		echo "update complete";
+		 		
 		 }
 		 else
 		 {
@@ -57,74 +57,32 @@
 		$kminf=$preres['km_service']-500;//----cota inferior para aviso km
 		$kmsup=$preres['km_service']+500;//----cota superior para aviso km
 
-
-		if(($future>=$kminf)&&($future<=$kmsup))
-		{
-			$getUser="SELECT * FROM asociacion INNER JOIN users_vehiculos WHERE asociacion.patente='$preres[patente]'";
-			$userquery=mysqli_query($conexion,$getUser);
-			while($resUser=mysqli_fetch_array($userquery)){
-				echo '<h4>'.$resUser['nombre'].'---'.$resUser['email'].'</h4>';
-				echo "<hr><br>";
-			}
-			echo "<h2>entra en service</h2><br>".$preres['km_service'];
-		}
-		else{
-			echo "<h2>".$kminf."----".$future."---".$kmsup."</h2>";
-		}
-
-		//+++++++++++++++++++++++++++++++++++++++++++++
-		
-
-		//+++++++++++++++++++BLOQUE 4++++++++++++++++++++
-		
-
-
-		//+++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-		//1- obtener numero de dias entre ultimo service y hoy (proximos 7 dias)
-		//2- multiplicar la cantidad de dias x km_diarios y asignarlo a km auxiliar
-		//3- cuando el auxiliar este cercano a km_service mostrar
-		//4- el km total acumula km_diarios * fechadecarga hasta ahora
-		// 
-		
-
 		echo "<br>patente : ".$preres['patente'];
 		echo "<br>dias : ".$days;
 		echo "<br>km auxi : ".$km_aux;
 		echo "<br>km futuros :".$future;
 		echo "<br>km totales :".$km_total;
 		echo "<br>";
+		if(($future>=$kminf)&&($future<=$kmsup))
+		{
+			//--------------busca usuarios asociados a la patente
+			$getUser="SELECT * FROM asociacion INNER JOIN users_vehiculos WHERE asociacion.patente='$preres[patente]' AND asociacion.user=users_vehiculos.nombre ";
+			$userquery=mysqli_query($conexion,$getUser);
+
+			while($resUser=mysqli_fetch_array($userquery)){
+				echo '<h4>'.$resUser['nombre'].'---'.$resUser['email'].'</h4>';
+				echo "<hr><br>";
+			}
+			echo "<h2>entra en service".$preres['km_service'].'---'.$preres['patente']."</h2><br>";
+		}
+
+		//+++++++++++++++++++++++++++++++++++++++++++++
+	
 		
 	}
 
 
 
-
-
-
-
- /*$prereq="SELECT * FROM especificaciones WHERE id!=0"; //---CONSULTA ESPECIFICACIONES DISPONIBLES
-	$prequery=mysqli_query($conexion,$prereq);
-	
-	while($res=mysqli_fetch_array($prequery))
-	{
-		$req="SELECT * FROM vehiculos INNER JOIN asociacion WHERE vehiculos.cilindrada='$res[cilindrada]'";//----INTERSECCIONA TABLAS PARA OBTENER EL USUARIO
-		$query=mysqli_query($conexion,$req);
-		while($res1=mysqli_fetch_array($query)){
-			$req1="SELECT * FROM users_vehiculos WHERE ";//----PIDE DATOS DEL USUARIO PARA ENVIAR MAIL
-
-			$query1=mysqli_query($conexion,$req1);
-			while($final=mysqli_fetch_array($query1)){
-				echo $final['email'];
-			}
-		}
-		$fecha_actual = date("d-m-Y");
-		$semana = date("d-m-Y",strtotime($fecha_actual."+ 7 days"));
-		//--------obtener el kmxservice y multiplicarlo
-		//si los km estan entre 3500 y 4500 en el caso de que sea 4000 quizas
-	}*/
  ?>
 
 
