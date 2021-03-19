@@ -21,6 +21,7 @@ function cargaEntidad (entidad){
 		}
 	});
 }
+//--------------------------------------------------
 function CreateVehiculo(vehiculo){
 	$.ajax({
 		url:'../php/addVehiculos.php',
@@ -28,6 +29,22 @@ function CreateVehiculo(vehiculo){
 		data:{vehiculo},
 		success:function(data){
 			console.log(data);
+			window.location.href = "alta.php";
+		},
+		error:function(data){
+			$('#contenedor').append(data);
+		}
+	});
+}
+//-------------------------------------------------
+function updateService (patente,date){
+	$.ajax({
+		url:'../php/resetVehiculo.php',
+		type: 'POST',
+		data:{patente,date},
+		success:function(data){
+			$('.alert').fadeOut();
+			$('#contenedor').append(data);
 		}
 	});
 }

@@ -80,19 +80,13 @@
     				<tr>
       				<th scope="col">Patente</th>
       				<th scope="col">Usuario</th>
-      				<th scope="col">Vehículo</th>
-      				<th scope="col">Kilómetros totales</th>
+      				<th scope="col">Km Totales</th>
+      				<th scope="col">Teléfono</th>
       				<th class="text-center" scope="col">Enviar mail</th>
     				</tr>
   				</thead>
   				<tbody>
-    				<tr>
-     				<th scope="row">CWJ 389</th>
-     				 <td>Roberto Pérez Huerta</td>
-     				 <td>Moto</td>
-     				 <td>70000</td>
-     				 <td class="text-center"><a><i data-feather="mail"></i></a></td>
-   				 </tr>
+    				<?php require('../php/updateDate.php'); ?>
  				 </tbody>
 			</table>
    	 </div>
@@ -107,6 +101,27 @@
 <script src="../js/popper.min.js"></script>
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../js/scripts.js"></script>
+
+
+<script>
+  $(document).ready(function(){
+    let array = <?php echo json_encode($array);?>;
+    $('.available').on('click',function(){
+       let id = $(this).attr('id');
+       let json = array[id];
+       console.log();
+          $.ajax({
+            url:'../php/mailer.php',
+            type: 'POST',
+            data:{json},
+            success:function(data){
+               console.log(data);
+              }
+            });
+    });
+  });
+
+</script>
 
 </body>
 </html>

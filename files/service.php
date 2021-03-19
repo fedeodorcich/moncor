@@ -81,11 +81,16 @@
           <div class="mb-3">
 
    	 		     <select class="form-control" name="patente" id="patente" required>
-                  <option value="">Seleccionar patente</option>
-                  <option value="Moto">Moto</option>
-                  <option value="Auto">Auto</option>
+                  <option value="none">Seleccionar patente</option>
+                  <?php require('../php/getPatList.php'); ?>
+                  
               </select>
               <small class="text-muted mb-3">Controlar la patente antes de seleccionar</small>
+          </div>
+
+           <div class="mb-3">
+               <label for="date" class="form-label">Fecha del service</label>
+               <input type="date" class="form-control" name="date" id="date">
           </div>
 				  
 
@@ -110,22 +115,13 @@
 
 <script>
 	$(document).ready(function(){
-    if()
 		$('#cargar').on('click',function(){
 			event.preventDefault();
-      if(($('#entidad').val())!='none')
-      {
-          let user = {
-              "nombre": $('#nombre').val(),
-              "entidad": $('#entidad').val(),
-              "telefono": $('#telefono').val(),
-              "email": $('#email').val(),
-          }
-          cargaUser(user);
-      }
-      else{
-        console.log("elegi bien!");
-      }
+     
+          let patente = $('#patente').val();
+          let date = $('#date').val();
+          updateService(patente,date);
+    
 		});
 	});
 </script>

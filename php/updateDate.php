@@ -29,7 +29,8 @@
 		//---!!!AUTOMATIZACION ACUMULA INDEFINIDAS VECES KM total----
 		
 		 $fecha_carga=strtotime($preres['fecha_carga']);
-		 $km_total=ceil(($now-$fecha_carga)/86400)*$preres['km_diarios'];//---km totales historico
+		 $dias_carga=ceil(($now-$fecha_carga)/86400);
+		 $km_total=$dias_carga*$preres['km_diarios'];//---km totales historico
 
 		 $km_aux=ceil((strtotime($today)-$last)/86400)*$preres['km_diarios'];//---km recorridos desde el ultimo service
 		 $upd="UPDATE `vehiculos` SET `km_aux` = '$km_aux' , `km_total` = '$km_total' WHERE `patente` = '$preres[patente]'";
@@ -57,23 +58,36 @@
 		$kminf=$preres['km_service']-500;//----cota inferior para aviso km
 		$kmsup=$preres['km_service']+500;//----cota superior para aviso km
 
-		echo "<br>patente : ".$preres['patente'];
-		echo "<br>dias : ".$days;
-		echo "<br>km auxi : ".$km_aux;
-		echo "<br>km futuros :".$future;
-		echo "<br>km totales :".$km_total;
-		echo "<br>";
 		if(($future>=$kminf)&&($future<=$kmsup))
 		{
 			//--------------busca usuarios asociados a la patente
 			$getUser="SELECT * FROM asociacion INNER JOIN users_vehiculos WHERE asociacion.patente='$preres[patente]' AND asociacion.user=users_vehiculos.nombre ";
 			$userquery=mysqli_query($conexion,$getUser);
-
+			$i=0;
+			$array[]=[];
 			while($resUser=mysqli_fetch_array($userquery)){
-				echo '<h4>'.$resUser['nombre'].'---'.$resUser['email'].'</h4>';
-				echo "<hr><br>";
+				echo '<tr>
+     				<th scope="row">'.$preres['patente'].'</th>
+     				 <td>'.$resUser['nombre'].'</td>
+     				 <td>'.$km_total.'</td>
+     				 <td>'.$resUser['telefono'].'</td>';
+     				 $user = array(
+     				 				"nombre" => $resUser['nombre'],
+     				 				"email" => $resUser['email'],
+     				 				"patente" => $preres['patente'],
+							  );
+     				 if($preres['notified']==0)
+     				 {
+     				 	echo '<td class="text-center"><a class="sender available" id='.$i.'><i data-feather="mail"></i></a></td>';
+     				 	$array[$i]=$user;
+     				 	$i++;
+
+     				 }else echo '<td class="text-center"><a class="sender"><i data-feather="check-circle"></i></a></td>';
+     				 	
+     				 
+   				 echo '</tr>';
 			}
-			echo "<h2>entra en service".$preres['km_service'].'---'.$preres['patente']."</h2><br>";
+			
 		}
 
 		//+++++++++++++++++++++++++++++++++++++++++++++
