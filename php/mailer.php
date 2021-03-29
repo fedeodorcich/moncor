@@ -2,7 +2,7 @@
 	require('conexion.php');
 	$json=$_POST['json'];
 	$patente=$json['patente'];
-	$req="UPDATE `vehiculos` SET `notified` = 0 WHERE patente= '$patente'";
+	$req="UPDATE `vehiculos` SET `notified` = 1 WHERE patente= '$patente'";
 	$query=mysqli_query($conexion,$req);
 	if($query){
 		$para = 'fede.odorcich@gmail.com';

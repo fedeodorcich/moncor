@@ -24,13 +24,13 @@
 <div class="wrapper">
 
   
-   <nav id="sidenav" class="bg-dark activenav">
+    <nav id="sidenav" class="bg-dark activenav">
      <div>
       <h1>San Juan Bikes</h1>
      </div>
 
      <!----------------------------MENU SIDENAV---------------->
-     <ul>
+    <ul>
       <li>
         <a href="dashboard.php"><i data-feather="layers"></i>Panel General</a>
       </li>
@@ -44,14 +44,23 @@
       </li>
 
       <li>
-        <a href="" class="activa"><i data-feather="home"></i>Entidades</a>
+        <a href="lista_entidades.php" class="activa"><i data-feather="home"></i>Entidades</a>
+      </li>
+
+       <li>
+        <a href="service.php"><i data-feather="tool"></i>Services</a>
       </li>
 
       <li>
-        <a href="settings.php"><i data-feather="settings"></i>Settings</a>
+        <a href="settings.php"><i data-feather="sliders"></i>Especificaciones</a>
       </li>
 
+
      </ul>
+
+     <form class="d-flex">
+            <button class="btn-custom mt-3" type="submit"><i data-feather="log-out"></i>Cerrar Sesión</button>
+        </form>
 
    </nav>
 
@@ -60,10 +69,7 @@
       <div class="navbar bg-dark">
 
           <a id="clicker"><i data-feather="menu"></i></a>
-          
-          <form class="d-flex">
-            <button class="btn btn-danger" type="submit"><i data-feather="log-out"></i>Cerrar Sesión</button>
-          </form>
+         
       </div>
 
      <div class="mainer">
