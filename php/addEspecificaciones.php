@@ -4,6 +4,8 @@
 	$vehiculo=$_POST['vehiculo'];
 	$tipo=$_POST['tipo'];
 	$km=$_POST['service'];
+	$cubiertas=$_POST['cubiertas'];
+	$bateria=$_POST['bateria'];
 
 	$prereq="SELECT * FROM `especificaciones` WHERE cilindrada='$tipo' AND vehiculo='$vehiculo'";
 	$prequery=mysqli_query($conexion,$prereq);
@@ -14,7 +16,7 @@
 		header('Location:../files/settings.php');
 	}
 	else{
-		$req="INSERT INTO `especificaciones` (`id`, `vehiculo`, `cilindrada`, `km_service`, `timestamp`) VALUES ('0', '$vehiculo', '$tipo', '$km', current_timestamp())";
+		$req="INSERT INTO `especificaciones` (`id`, `vehiculo`, `cilindrada`, `km_service`, `km_cubiertas`, `anio_bateria`, `timestamp`) VALUES ('0', '$vehiculo', '$tipo', '$km', '$cubiertas', '$bateria', current_timestamp())";
 		$query=mysqli_query($conexion,$req);
 		if($query)
 		{

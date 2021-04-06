@@ -25,8 +25,8 @@
 
   
     <nav id="sidenav" class="bg-dark activenav">
-     <div>
-      <h1>San Juan Bikes</h1>
+      <div id="side-img">
+      <img src="../src/img/logo-moncor-side.png">
      </div>
 
      <!----------------------------MENU SIDENAV---------------->
@@ -146,7 +146,21 @@
       event.preventDefault();
       cargaEntidad($('#nombre').val());
     });
+
+   
   });
+   $(".deleter").on('click',function(){
+        let entidad = $(this).attr('name');
+        console.log(entidad);
+        $.ajax({
+          url:'../php/deleteEntidad.php',
+          type: 'POST',
+          data:{entidad},
+          success:function(data){
+            window.location.href = "lista_entidades.php";
+          }
+        });
+    });
 </script>
 
 </body>

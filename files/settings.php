@@ -34,8 +34,8 @@
 
 	
      <nav id="sidenav" class="bg-dark activenav">
-     <div>
-      <h1>San Juan Bikes</h1>
+      <div id="side-img">
+      <img src="../src/img/logo-moncor-side.png">
      </div>
 
      <!----------------------------MENU SIDENAV---------------->
@@ -91,8 +91,10 @@
   				<thead class="table-dark">
     				<tr>
       				<th scope="col">Tipo</th>
-      				<th scope="col">Cilindrada</th>
-      				<th scope="col">Km Service</th>
+      				<th scope="col">Cilindrada (Cc)</th>
+      				<th scope="col">General (KM)</th>
+              <th scope="col">Cubiertas (KM)</th>
+              <th scope="col">Batería (Año)</th>
               <th scope="col">Eliminar</th>
     				</tr>
   				</thead>
@@ -133,8 +135,18 @@
                        </div>
 
                        <div class="mb-3">
-                          <label for="tipo" class="form-label">Service al KM</label>
-                          <input type="number" class="form-control" name="service" required placeholder="solo números">
+                          <label for="tipo" class="form-label">Service general</label>
+                          <input type="number" class="form-control" name="service" required placeholder="Cantidad de kilómetros">
+                       </div>
+
+                       <div class="mb-3">
+                          <label for="tipo" class="form-label">Service de cubiertas</label>
+                          <input type="number" class="form-control" name="cubiertas" required placeholder="Cantidad de kilómetros">
+                       </div>
+
+                       <div class="mb-3">
+                          <label for="tipo" class="form-label">Cambio de batería</label>
+                          <input type="number" class="form-control" name="bateria" required placeholder="Cantidad de años">
                        </div>
 
                     </div>

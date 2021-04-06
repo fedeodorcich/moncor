@@ -37,11 +37,11 @@ function CreateVehiculo(vehiculo){
 	});
 }
 //-------------------------------------------------
-function updateService (patente,date){
+function updateService (patente,date,type){
 	$.ajax({
 		url:'../php/resetVehiculo.php',
 		type: 'POST',
-		data:{patente,date},
+		data:{patente,date,type},
 		success:function(data){
 			$('.alert').fadeOut();
 			$('#contenedor').append(data);

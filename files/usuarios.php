@@ -25,8 +25,8 @@
 
 	
    <nav id="sidenav" class="bg-dark activenav">
-     <div>
-      <h1>San Juan Bikes</h1>
+      <div id="side-img">
+      <img src="../src/img/logo-moncor-side.png">
      </div>
 
      <!----------------------------MENU SIDENAV---------------->

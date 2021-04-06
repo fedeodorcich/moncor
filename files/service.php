@@ -25,9 +25,9 @@
 
 	
    <nav id="sidenav" class="bg-dark activenav">
-   	 <div>
-   	 	<h1>San Juan Bikes</h1>
-   	 </div>
+   	 <div id="side-img">
+      <img src="../src/img/logo-moncor-side.png">
+     </div>
 
      <!----------------------------MENU SIDENAV---------------->
    	<ul>
@@ -89,6 +89,16 @@
           </div>
 
            <div class="mb-3">
+               <label for="type" class="form-label">Tipo de service</label>
+               <select name="type" id="type" class="form-control">
+                  <option value="0">General</option>
+                  <option value="1">Cubiertas</option>
+                  <option value="2">Batería</option>
+               </select>
+               <small class="text-muted mb-3">Seleccionar tipo de service</small>
+          </div>
+
+           <div class="mb-3">
                <label for="date" class="form-label">Fecha del service</label>
                <input type="date" class="form-control" name="date" id="date">
           </div>
@@ -120,7 +130,8 @@
      
           let patente = $('#patente').val();
           let date = $('#date').val();
-          updateService(patente,date);
+          let type = $('#type').val();
+          updateService(patente,date,type);
     
 		});
 	});

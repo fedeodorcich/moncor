@@ -11,6 +11,8 @@
      				 <td>'.$res['vehiculo'].'</td>
      				 <td>'.$res['cilindrada'].'</td>
      				 <td>'.$res['km_service'].'</td>
+     				 <td>'.$res['km_cubiertas'].'</td>
+     				 <td>'.$res['anio_bateria'].'</td>
              <th><button type="button" class="btn btn-sm btn-danger deleter" name="'.$res['id'].'">
                 Eliminar
             </button>

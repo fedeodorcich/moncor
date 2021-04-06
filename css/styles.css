@@ -19,6 +19,11 @@ body{
 	transition: all .3s ease-in-out;
 }
 
+#side-img img{
+	width: 150px;
+	margin-left: 15px;
+}
+
 #sidenav ul{
 	padding-left: 0;
 

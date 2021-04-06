@@ -9,6 +9,7 @@
 		//--------------FECHAS------------------
 		$today= date("d-m-Y");
 		$last= strtotime($preres['last_service']);
+		$last_cubiertas= strtotime($preres['last_cubiertas']);
 		$now=strtotime($today);
 
 		$before = strtotime($today."+ 4 days");//----cota inferior
@@ -47,6 +48,23 @@
 		 		echo "update failed";
 		 }
 
+
+		 $aux_cubiertas=ceil((strtotime($today)-$last_cubiertas)/86400)*$preres['km_diarios'];
+		 $upd_cubiertas="UPDATE `vehiculos` SET `km_cubiertas` = '$aux_cubiertas' WHERE `patente` = '$preres[patente]'";
+
+		 $updatercub=mysqli_query($conexion,$upd_cubiertas);
+
+		 if($updatercub)
+		 {
+		 		
+		 }
+		 else
+		 {
+		 		echo "update failed";
+		 }
+
+
+
 		//+++++++++++++++++++++++++++++++++++++++++++++
 		
 		
@@ -58,11 +76,37 @@
 		$kminf=$preres['km_service']-500;//----cota inferior para aviso km
 		$kmsup=$preres['km_service']+500;//----cota superior para aviso km
 
-		if(($future>=$kminf)&&($future<=$kmsup))
+		$cubinf=$preres['km_cubiertas']-500;//----cota inferior para aviso cubiertas
+		$cubsup=$preres['km_cubiertas']+500;//----cota superior para aviso cubiertas
+
+		$daysbat=strtotime($preres['last_battery']);
+		$dias_bat=ceil(($now-$daysbat)/86400); //----cantidad de dias desde el ultimo service de bateria
+
+		$batinf=($preres['anio_bateria']*365)-5;
+		$batsup=($preres['anio_bateria']*365)+3;
+
+		
+
+
+		if((($future>=$kminf)&&($future<=$kmsup))||(($future>=$cubinf)&&($future<=$cubsup))||(($batinf<=$dias_bat)&&($batsup>=$dias_bat)))
 		{
 			//--------------busca usuarios asociados a la patente
 			$getUser="SELECT * FROM asociacion INNER JOIN users_vehiculos WHERE asociacion.patente='$preres[patente]' AND asociacion.user=users_vehiculos.nombre ";
 			$userquery=mysqli_query($conexion,$getUser);
+
+			$type='';
+
+			if(($future>=$kminf)&&($future<=$kmsup))
+				$type=$type.' General';
+
+			if(($future>=$cubinf)&&($future<=$cubsup))
+				$type=$type.' Cubiertas';
+
+			if(($batinf<=$dias_bat)&&($batsup>=$dias_bat))
+				$type=$type.' Batería';
+
+
+
 			$i=0;
 			$array[]=[];
 			while($resUser=mysqli_fetch_array($userquery)){
@@ -70,7 +114,8 @@
      				<th scope="row">'.$preres['patente'].'</th>
      				 <td>'.$resUser['nombre'].'</td>
      				 <td>'.$km_total.'</td>
-     				 <td>'.$resUser['telefono'].'</td>';
+     				 <td>'.$resUser['telefono'].'</td>
+     				 <td>'.$type.'</td>';
      				 $user = array(
      				 				"nombre" => $resUser['nombre'],
      				 				"email" => $resUser['email'],
@@ -82,21 +127,10 @@
      				 	$array[$i]=$user;
      				 	$i++;
 
-     				 }else echo '<td class="text-center"><a class="sender"><i data-feather="check-circle"></i></a></td>';
-     				 	
-     				 
+     				 }else echo '<td class="text-center"><a class="sender"><i data-feather="check-circle"></i></a></td>'; 
    				 echo '</tr>';
-			}
-			
+			}		
 		}
-
 		//+++++++++++++++++++++++++++++++++++++++++++++
-	
-		
 	}
-
-
-
  ?>
-
-
