@@ -8,14 +8,13 @@
 	$dater = date_create($date.' 12:00:00');
 	$d=date_format($dater,'Y-m-d H:i:s');
 
-	echo $d;
 
 	if($patente!='none')
 	{
 		switch($type){
 			//-------------------------------------------------CASO GENERAL---------------------------
 			case 0:
-				$req="UPDATE `vehiculos` SET `km_aux` = 0 , `notified` = 0 , `last_service` = '$d' WHERE patente= '$patente'";
+				$req="UPDATE `vehiculos` SET `km_aux` = 0 , `km_total` = 0 , `notified` = 0 , `last_service` = '$d' WHERE patente= '$patente'";
 				$query=mysqli_query($conexion,$req);
 				if($query){
 					$req2="INSERT INTO `registros` (`id`, `patente`, `fecha`, `timestamp`) VALUES ('0', '$patente', '$d', current_timestamp())";
@@ -36,7 +35,7 @@
 				break;
 			//-------------------------------------------------CASO CUBIERTAS---------------------------
 			case 1:
-				$req="UPDATE `vehiculos` SET `km_cubiertas` = 0 , `notified` = 0 , `last_cubiertas` = '$d' WHERE patente= '$patente'";
+				$req="UPDATE `vehiculos` SET `km_cubiertas` = 0 , `total_cubiertas` = 0 ,`notified` = 0 , `last_cubiertas` = '$d' WHERE patente= '$patente'";
 				$query=mysqli_query($conexion,$req);
 				if($query){
 					$req2="INSERT INTO `registros` (`id`, `patente`, `fecha`, `timestamp`) VALUES ('0', '$patente', '$d', current_timestamp())";

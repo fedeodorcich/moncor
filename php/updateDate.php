@@ -1,8 +1,14 @@
 <?php 	
+	$array=[];
+	$i=0;
 	require('conexion.php');
 	$prereq="SELECT * FROM especificaciones INNER JOIN vehiculos WHERE vehiculos.cilindrada=especificaciones.cilindrada";
 	$prequery=mysqli_query($conexion,$prereq);
 	while($preres=mysqli_fetch_array($prequery)){
+
+		//-----------auxiliares----------
+		
+		$kmaux_aux=$preres['km_aux'];
 
 		//++++++++++++++++++++BLOQUE 1+++++++++++++++++DATER
 
@@ -29,18 +35,25 @@
 		 
 		//---!!!AUTOMATIZACION ACUMULA INDEFINIDAS VECES KM total----
 		
+		 $kmtot=$preres['km_total'];
 		 $fecha_carga=strtotime($preres['fecha_carga']);
 		 $dias_carga=ceil(($now-$fecha_carga)/86400);
-		 $km_total=$dias_carga*$preres['km_diarios'];//---km totales historico
 
-		 $km_aux=ceil((strtotime($today)-$last)/86400)*$preres['km_diarios'];//---km recorridos desde el ultimo service
-		 $upd="UPDATE `vehiculos` SET `km_aux` = '$km_aux' , `km_total` = '$km_total' WHERE `patente` = '$preres[patente]'";
+		 $km_agregar=$dias_carga*$preres['km_diarios'];
+
+		 $km_total=$kmtot+$km_agregar;//---km totales historico
+
+		 $km_aux=(ceil((strtotime($today)-$last)/86400)*$preres['km_diarios']);//---km recorridos desde el ultimo service
+
+
+		 $upd="UPDATE `vehiculos` SET `km_aux` = '$km_aux'  WHERE `patente` = '$preres[patente]'";
 		
 		 
 		 $updater=mysqli_query($conexion,$upd);
 
 		 if($updater)
 		 {
+
 		 		
 		 }
 		 else
@@ -71,7 +84,8 @@
 		
 		//++++++++++++++++++++BLOQUE 3+++++++++++++++++BACK TO THE FUTURE
 		
-		$future=$days*$preres['km_diarios'];
+		$future=$days*$preres['km_diarios']+$kmtot;
+		$futurec=$days*$preres['km_diarios']+$preres['total_cubiertas'];
 
 		$kminf=$preres['km_service']-500;//----cota inferior para aviso km
 		$kmsup=$preres['km_service']+500;//----cota superior para aviso km
@@ -86,12 +100,12 @@
 		$batsup=($preres['anio_bateria']*365)+3;
 
 		
+		
 
-
-		if((($future>=$kminf)&&($future<=$kmsup))||(($future>=$cubinf)&&($future<=$cubsup))||(($batinf<=$dias_bat)&&($batsup>=$dias_bat)))
+		if((($future>=$kminf)&&($future<=$kmsup))||(($futurec>=$cubinf)&&($futurec<=$cubsup))||(($batinf<=$dias_bat)&&($batsup>=$dias_bat)))
 		{
 			//--------------busca usuarios asociados a la patente
-			$getUser="SELECT * FROM asociacion INNER JOIN users_vehiculos WHERE asociacion.patente='$preres[patente]' AND asociacion.user=users_vehiculos.nombre ";
+			$getUser="SELECT * FROM asociacion INNER JOIN users_vehiculos WHERE asociacion.patente='$preres[patente]' AND asociacion.user=users_vehiculos.email ";
 			$userquery=mysqli_query($conexion,$getUser);
 
 			$type='';
@@ -99,7 +113,7 @@
 			if(($future>=$kminf)&&($future<=$kmsup))
 				$type=$type.' General';
 
-			if(($future>=$cubinf)&&($future<=$cubsup))
+			if(($futurec>=$cubinf)&&($futurec<=$cubsup))
 				$type=$type.' Cubiertas';
 
 			if(($batinf<=$dias_bat)&&($batsup>=$dias_bat))
@@ -107,24 +121,26 @@
 
 
 
-			$i=0;
-			$array[]=[];
+			
+
+			
 			while($resUser=mysqli_fetch_array($userquery)){
-				echo '<tr>
-     				<th scope="row">'.$preres['patente'].'</th>
-     				 <td>'.$resUser['nombre'].'</td>
-     				 <td>'.$km_total.'</td>
-     				 <td>'.$resUser['telefono'].'</td>
-     				 <td>'.$type.'</td>';
-     				 $user = array(
+				$user = array(
      				 				"nombre" => $resUser['nombre'],
      				 				"email" => $resUser['email'],
-     				 				"patente" => $preres['patente'],
+     				 				"telefono" => $resUser['telefono'],
+     				 				"patente" => $preres['patente']
 							  );
+				echo '<tr>
+     				<th scope="row">'.$user['patente'].'</th>
+     				 <td>'.$user['nombre'].'</td>
+     				 <td>'.$user['telefono'].'</td>
+     				 <td>'.$type.'</td>';
+     				 
      				 if($preres['notified']==0)
      				 {
-     				 	echo '<td class="text-center"><a class="sender available" id='.$i.'><i data-feather="mail"></i></a></td>';
-     				 	$array[$i]=$user;
+     				 	echo '<td class="text-center"><a class="sender available" id='.$i.'><i data-feather="mail"></i><i class="hidden" data-feather="check-circle"></a></td>';
+     				 	array_push($array, $user);
      				 	$i++;
 
      				 }else echo '<td class="text-center"><a class="sender"><i data-feather="check-circle"></i></a></td>'; 
@@ -133,4 +149,5 @@
 		}
 		//+++++++++++++++++++++++++++++++++++++++++++++
 	}
+	
  ?>

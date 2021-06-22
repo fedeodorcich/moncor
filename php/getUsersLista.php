@@ -7,7 +7,7 @@
 
 	while($res=mysqli_fetch_array($query))
 	{
-		echo '<option value="'.$res['nombre'].'">'.$res['nombre'].'</option>';
+		echo '<option value="'.$res['email'].'">'.$res['email'].'</option>';
 	}
 
 	

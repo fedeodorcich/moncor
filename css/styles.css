@@ -11,6 +11,9 @@
 body{
 	background-color: #ebebeb;
 }
+.hidden{
+	display: none;
+}
 /*---------------------------------sidenav--------*/
 
 #sidenav{

@@ -1,3 +1,14 @@
+<?php 
+  require('../php/conexion.php');
+  session_start();
+  $user= $_SESSION['user'];
+  if(($user==null)||($user==''))
+  {
+    print_r($user);
+    header('Location:../unauthorized.html');
+  }
+
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +66,7 @@
 
      </ul>
 
-     <form class="d-flex">
+     <form class="d-flex" action="../php/sessionDestroyer.php">
             <button class="btn-custom mt-3" type="submit"><i data-feather="log-out"></i>Cerrar Sesión</button>
         </form>
 

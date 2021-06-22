@@ -1,12 +1,12 @@
 <?php 
-  /*require('../php/conexion.php');
+  require('../php/conexion.php');
   session_start();
-  $user= $_SESSION;
+  $user= $_SESSION['user'];
   if(($user==null)||($user==''))
   {
     print_r($user);
-    //header('Location:../unauthorized.html');
-  }*/
+    header('Location:../unauthorized.html');
+  }
 
  ?>
 <!DOCTYPE html>
@@ -67,7 +67,7 @@
 
      </ul>
 
-     <form class="d-flex">
+     <form class="d-flex" action="../php/sessionDestroyer.php">
             <button class="btn-custom mt-3" type="submit"><i data-feather="log-out"></i>Cerrar Sesión</button>
         </form>
 
@@ -84,7 +84,7 @@
 
    	 <div class="mainer">
       <div class="container mt-5" style="padding: 0;">
-           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreate">Crear Setting</button>
+           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreate"><i data-feather="plus"></i>Agregar Especificación</button>
       </div>
      
    	 	<table class="table col-md-12 container mt-2 text-center">

@@ -1,9 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta charset="utf-8">
+	<title>San Juan Biker</title>
+	<script src="js/feather.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Personal no autorizado, inicie sesion <a href="index.html">aquí</a></h1>
+
+	<style>
+		#first{
+			background-color: #ebebeb;
+			color: red;
+			padding: 4em 1em;
+			height: 350px;
+			font-size: 2em;
+		}
+		svg{
+			width: 45px;
+  			height: 45px;
+  			display: inline-block;
+   			vertical-align: middle;
+		}
+		p{
+			display: inline-block;
+   			vertical-align: middle;
+   			margin: 0 0 0 10px;
+
+		}
+		#second{
+			background-color: #d1d1d1;
+			padding: 2em;
+			font-size: 1.5em;
+		}
+	</style>
+
+
+<div id="first">
+	<b><i data-feather="x-circle"></i><p>PERSONAL NO AUTORIZADO</p></b>
+</div>
+
+<div id="second">
+	inicie sesión <a href="index.html">aquí</a>
+</div>
+
+<script src="js/jquery.js"></script>
+<script>feather.replace();</script>
 </body>
 </html>
